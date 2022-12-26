@@ -16,7 +16,7 @@ Please modify the file Makefile.locale to help us find Gurobi.
 For a Mac with the latest gurobi10.0 installed your likely settings
 will be:
 
-> HOST_ARCH=mac64
+> HOST_ARCH=macos_universal2
 > GUROBI\_PATH=/Library/gurobi1000
 
 For a linux box, your settins will be:
@@ -26,11 +26,11 @@ For a linux box, your settins will be:
 
 You should feel free to modify these two variables. The Makefile will look for Gurobi headers under
 
-> $(GUROBI\_PATH)/$(HOST_ARCH)/include
+> $(GUROBI\\_PATH)/$(HOST_ARCH)/include
 
 and libraries under
 
-> $(GUROBI\_PATH)/$(HOST_ARCH)/include
+> $(GUROBI\\_PATH)/$(HOST_ARCH)/include
 
 
 Once these are set, you should type
@@ -43,10 +43,7 @@ to compile. It should work out of the box.
 
 Please use the command line run_file to run all the benchmarks.
 
-> ./run_file all
+> ./run_file
 
 
 Enjoy the output as it scrolls on your screen :-)
-
-Alternatively, you can run a specific benchmark using the following command :
- > ./run_file <benchmark_no>
