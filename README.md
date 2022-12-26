@@ -20,7 +20,7 @@ will be:
 
 > GUROBI\_PATH=/Library/gurobi1000
 
-For a linux box, your settins will be:
+For a linux box, your settings will be: (Not tested yet)
 
 > ARCH=linux64 # if you are using a linux box
 > GUROBI\_PATH=/opt/gurobi1000

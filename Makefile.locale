@@ -4,5 +4,5 @@ GUROBI_PATH = /Library/gurobi1000
 HOST_ARCH = macos_universal2
 
 # The following is for Linux
-# GUROBI_PATH =  /opt/gurobi800
+# GUROBI_PATH =  /opt/gurobi1000
 # HOST_ARCH =  linux64
