@@ -1,6 +1,6 @@
 #!/bin/bash
 
-make clean 
+make clean
 make
 
 python3 sherlock_python_interface/generate_network.py --seed=1

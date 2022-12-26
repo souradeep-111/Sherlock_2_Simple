@@ -69,7 +69,7 @@ if __name__ == '__main__':
     max = torch.max(output_array).cpu().detach().numpy()
     min = torch.min(output_array).cpu().detach().numpy()
 
-    print("Current seed -- ", args.seed)
+    print("===================== Current seed - ", args.seed, " ========================== ")
     print("Python estimated interval - [", min, max,"]" )
 
     test_sample = np.asarray([1.0,2.0]).astype(np.float32)
