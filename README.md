@@ -56,7 +56,7 @@ generates fixed architecture networks with random weights.
 
 > bash test_script.sh
 
-# Catch Alert !
+### Catch Alert !
 Right now its not as automated as I would want it to be. You need to manual select
 the index of the output node where you are interested. This can be obtained from the
-variable index as Model-output, which matches the number assigned to output\_index in Line 41 of main.cpp
+variable index as Model-output, which matches the number assigned to modelOutput in Line 41 of main.cpp
