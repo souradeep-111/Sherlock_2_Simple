@@ -17,6 +17,7 @@ For a Mac with the latest gurobi10.0 installed your likely settings
 will be:
 
 > HOST_ARCH=macos_universal2
+
 > GUROBI\_PATH=/Library/gurobi1000
 
 For a linux box, your settins will be:
