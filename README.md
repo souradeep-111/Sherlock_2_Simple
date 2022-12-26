@@ -48,3 +48,7 @@ Please use the command line run_file to run all the benchmarks.
 
 
 Enjoy the output as it scrolls on your screen :-)
+
+## Instructions to Test Against Randomly generated Pytorch networks
+
+> bash test_script.sh
