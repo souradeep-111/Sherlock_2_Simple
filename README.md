@@ -46,7 +46,7 @@ Please use the command line run_file to run all the benchmarks.
 
 Enjoy the output as it scrolls on your screen :-)
 
-## Instructions to Test Against Randomly generated Pytorch networks
+## Instructions to test against randomly generated pytorch networks
 
 Sherlock can read networks in the ONNX format. Right now the test script
 generates fixed architecture networks with random weights.
