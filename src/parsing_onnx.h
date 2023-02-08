@@ -147,6 +147,12 @@ public:
   void build_graph(computation_graph & CG,
                    map< string, ParameterValues < uint32_t > > & tensor_name_to_nodes);
 
+  void build_graph_and_return_indices(computation_graph & CG,
+                                     map< string, ParameterValues < uint32_t > > & tensor_name_to_nodes,
+                                     _id_list_ & input_indices,
+                                     _id_list_ & output_indices);
+
+
   bool read_graph_proto(onnx::GraphProto & graph_proto,
                         map< string, ParameterValues < uint32_t > > & tensor_name_to_nodes,
                         computation_graph & CG);

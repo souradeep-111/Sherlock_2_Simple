@@ -959,6 +959,130 @@ void onnx_parser :: build_graph(computation_graph & CG,
 
 }
 
+void onnx_parser :: build_graph_and_return_indices(computation_graph & CG,
+                            map< string, ParameterValues < uint32_t > > & tensor_name_to_nodes,
+                            _id_list_ & input_indices,
+                            _id_list_ & output_indices)
+{
+
+  fstream input(input_filename.c_str(), std::ios::in | std::ios::binary);
+  string parameter_name;
+  uint32_t node_index;
+  input_indices.clear();
+  output_indices.clear();
+
+  onnx::ModelProto model_proto;
+  bool isSuccess = model_proto.ParseFromIstream(& input);
+  if(! isSuccess)
+  {
+    cout << "Could not read the onnx input file, exiting " << endl;
+    exit(0);
+  }
+
+  if(!model_proto.has_graph())
+  {
+    cout << "No network graph found in the onnx file" << endl;
+    exit(0);
+  }
+
+  // Okay, some kind of graph is present and the reading was successful
+  if(sherlock_parameters.verbose_onnx)
+  {
+    cout << " ---------------------------------------- " << endl << endl;
+    cout << "Version of the ONNX format is " << model_proto.ir_version() << endl;
+    cout << "Number of operators used  : " << model_proto.opset_import_size() << endl;
+
+    onnx::OperatorSetIdProto opset_id_proto = model_proto.opset_import(0);
+    cout << "OPSET version used  : " << opset_id_proto.version() << endl;
+    cout << "Opset id proto domain : " << model_proto.domain() << endl;
+    cout << "Model version : " << model_proto.model_version() << endl;
+  }
+
+  onnx::GraphProto graph_proto = model_proto.graph();
+
+  if(read_graph_proto(graph_proto, tensor_name_to_nodes ,CG))
+  {
+    if(sherlock_parameters.verbose_onnx)
+    {
+      cout << "Graph successfully read. " << endl;
+    }
+  }
+  else
+  {
+    cout << "Error in reading Graph proto .. exiting " << endl;
+    exit(0);
+  }
+
+  if(sherlock_parameters.verbose_onnx)
+    cout << "Indices of the input nodes are : " << endl;
+
+  for(int i = 0; i < graph_proto.input_size() ; i++)
+  {
+    onnx::ValueInfoProto value_info_proto = graph_proto.input(i);
+    parameter_name = value_info_proto.name();
+
+    if(tensor_name_to_nodes.find(parameter_name) == tensor_name_to_nodes.end())
+      continue;
+
+    if(sherlock_parameters.verbose_onnx)
+    {
+      cout << parameter_name << " -- [ ";
+    }
+
+
+    for(auto each_node_index : tensor_name_to_nodes[parameter_name].data_stash)
+    {
+      if(sherlock_parameters.verbose_onnx)
+        cout << each_node_index << " , ";
+
+      input_indices.push_back(each_node_index);
+    }
+
+    if(sherlock_parameters.verbose_onnx)
+      cout << " ] " << endl;
+
+  }
+
+  if(sherlock_parameters.verbose_onnx)
+  {
+    cout << "Number of output groups of the graph = " << graph_proto.output_size() << endl;
+    cout << "Indices of the nodes are : " << endl;
+  }
+
+  for(int i = 0; i < graph_proto.output_size() ; i++)
+  {
+    onnx::ValueInfoProto value_info_proto = graph_proto.output(i);
+    // cout << "Name : " << value_info_proto.name() << "  " << endl;
+    parameter_name = value_info_proto.name();
+    onnx::TypeProto type_proto = value_info_proto.type();
+    onnx::TypeProto::Tensor tensor_proto = type_proto.tensor_type();
+    onnx::TensorShapeProto tensor_shape_proto = tensor_proto.shape();
+    assert(tensor_name_to_nodes.find(parameter_name) != tensor_name_to_nodes.end());
+
+    if(sherlock_parameters.verbose_onnx)
+    {cout << parameter_name << " -- [ ";}
+
+    for(auto each_node_index : tensor_name_to_nodes[parameter_name].data_stash)
+    {
+      if(sherlock_parameters.verbose_onnx)
+      {cout << each_node_index << " , ";}
+
+      CG.mark_node_as_output(each_node_index);
+
+      output_indices.push_back(each_node_index);
+
+    }
+    if(sherlock_parameters.verbose_onnx)
+    {
+      cout << " ] " << endl;
+      cout << " -------------------------------------- " << endl << endl;
+    }
+
+  }
+
+}
+
+
 bool onnx_parser :: read_graph_proto(onnx::GraphProto & graph_proto,
                            map< string, ParameterValues < uint32_t > > & tensor_name_to_nodes,
                            computation_graph & CG)
