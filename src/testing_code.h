@@ -330,7 +330,7 @@ void test_3(int arg_count, char ** arg_val)
 
 void test_4()
 {
-  // This code test simple network creation :
+  // This code tests simple network creation :
   sherlock_parameters.thread_count = 1;
 	sherlock_parameters.do_incremental_constant_search = true;
 	sherlock_parameters.verbosity = false;
@@ -343,11 +343,13 @@ void test_4()
 	sherlock_parameters.use_gurobi_internal_constraints = true;
 	sherlock_parameters.find_extra_directions = true;
 
+	// Creating two nodes in the graph
   double weight = 1.0;
   node node_1(2, "relu");
   node_1.set_bias(0.0);
   node node_input(1, "constant");
 
+	// Creating the computatio graph using the 2 nodes
   computation_graph CG;
 
   CG.add_new_node(1, node_input);
@@ -357,6 +359,7 @@ void test_4()
   CG.mark_node_as_input(1);
   CG.mark_node_as_output(2);
 
+	// Testing it on some simple input
   {
     map<uint32_t , double > inputs, outputs;
 		inputs[1] = -1.0;
@@ -364,15 +367,19 @@ void test_4()
 	  cout << "Test Output - " << outputs[2] << endl;
   }
 
+	// Making an input set for forward propagation
   map< uint32_t, pair< double, double > > input_interval;
 	input_interval[1] = make_pair(3,5);
 
 	region_constraints input_polyhedron, output_polyhedron;
   input_polyhedron.create_region_from_interval(input_interval);
 
+	// Creating a new Sherlock instance
   sherlock sherlock_instance(CG);
   uint32_t output_index = 2;
 
+
+	// Computing the forward sets
   pair< double, double > output_range;
   sherlock_instance.compute_output_range(output_index, input_polyhedron, output_range);
   cout << "Computed output range by Sherlock = [" <<
