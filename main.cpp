@@ -21,9 +21,9 @@ using namespace std::chrono;
 int main(int argc, char ** argv)
 {
 
-	// test_1(argc, argv);
+	test_1(argc, argv);
 
-	test_4();
+	// test_4();
 
   return 0;
 }

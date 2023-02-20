@@ -52,8 +52,3 @@ Sherlock can read networks in the ONNX format. Right now the test script
 generates fixed architecture networks with random weights.
 
 > bash test_script.sh
-
-### Catch Alert !
-Right now its not as automated as I would want it to be. You need to manually select
-the index of the output node where you are interested. This can be obtained from the
-variable indexed as $modelOutput$ when you execute the binary $runfile$. This matches the number assigned to output\_index in Line 41 of main.cpp
