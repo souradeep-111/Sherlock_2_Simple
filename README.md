@@ -20,6 +20,7 @@ will be:
 For a linux box, your settings will be: (Not tested yet)
 
 > ARCH=linux64 # if you are using a linux box
+
 > GUROBI\_PATH=/opt/gurobi1000
 
 You should feel free to modify these two variables. The Makefile will look for Gurobi headers under
