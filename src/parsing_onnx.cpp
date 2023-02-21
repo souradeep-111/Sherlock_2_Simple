@@ -1110,11 +1110,11 @@ bool onnx_parser :: read_graph_proto(onnx::GraphProto & graph_proto,
   ParameterValues < double > p_weight_value;
   ParameterValues < uint32_t > p_nodes_value;
 
-  // if(graph_proto.initializer_size() < 1)
-  // {
-  //   cout << "GraphProto reading failed due to initializer size " << endl;
-  //   return false;
-  // }
+  if(graph_proto.initializer_size() < 1)
+  {
+    cout << "GraphProto reading failed due to initializer size " << endl;
+    return false;
+  }
 
   for(int i = 0; i < graph_proto.initializer_size(); i++)
   {
