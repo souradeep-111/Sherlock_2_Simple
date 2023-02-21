@@ -1277,6 +1277,8 @@ bool onnx_parser::read_tensor_proto(onnx::TensorProto & tensor_proto, ParameterV
   vector< int > dimension_values;
   vector< double > data_stash;
 
+  cout << "Tensor proto dim size - " << tensor_proto.dims_size() << endl;
+
   dimension_values.clear();
   for(int j = 0; j < tensor_proto.dims_size(); j++)
   {
