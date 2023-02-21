@@ -1096,10 +1096,10 @@ bool onnx_parser :: read_graph_proto(onnx::GraphProto & graph_proto,
   string parameter_name;
   map< uint32_t, node > node_id_to_node;
 
-  cout << "Name of the graph = " << graph_proto.name() << endl;
-  cout << "Documentation string for the graph = " << graph_proto.doc_string() << endl;
-  cout << "Number of inputs to the graph = " << graph_proto.input_size() << endl;
-  cout << "Inputs to the graph are = " << endl;
+  // cout << "Name of the graph = " << graph_proto.name() << endl;
+  // cout << "Documentation string for the graph = " << graph_proto.doc_string() << endl;
+  // cout << "Number of inputs to the graph = " << graph_proto.input_size() << endl;
+  // cout << "Inputs to the graph are = " << endl;
 
   // Reading the initializers and read the data stash from the initializers and
   // put them inside the parameters_name of the that you are building above
@@ -1110,28 +1110,21 @@ bool onnx_parser :: read_graph_proto(onnx::GraphProto & graph_proto,
   ParameterValues < double > p_weight_value;
   ParameterValues < uint32_t > p_nodes_value;
 
-  if(graph_proto.initializer_size() < 1)
-  {
-    cout << "GraphProto reading failed due to initializer size " << endl;
-    return false;
-  }
+  // if(graph_proto.initializer_size() < 1)
+  // {
+  //   cout << "GraphProto reading failed due to initializer size " << endl;
+  //   return false;
+  // }
 
   for(int i = 0; i < graph_proto.initializer_size(); i++)
   {
-    cout << "Graph proto initializer - " << i << endl;
 
     onnx::TensorProto tensor_proto;
-    cout << "Step - 1" << endl;
     tensor_proto = graph_proto.initializer(i);
-    cout << "Step - 2" << endl;
     parameter_name = tensor_proto.name();
-    cout << "Step - 3" << endl;
     initializer_names.push_back(tensor_proto.name());
-    cout << "Step - 4" << endl;
     p_weight_value.clear();
-    cout << "Step - 5" << endl;
     read_tensor_proto(tensor_proto, p_weight_value);
-    cout << "Step - 6" << endl;
     parameters_map[parameter_name] = p_weight_value;
   }
 
@@ -1144,7 +1137,6 @@ bool onnx_parser :: read_graph_proto(onnx::GraphProto & graph_proto,
 
   for(int i = 0; i < graph_proto.input_size() ; i++)
   {
-    cout << "Graph proto index - " << i << endl;
 
     onnx::ValueInfoProto value_info_proto = graph_proto.input(i);
     parameter_name = value_info_proto.name();
@@ -1276,8 +1268,6 @@ bool onnx_parser::read_tensor_proto(onnx::TensorProto & tensor_proto, ParameterV
 {
   vector< int > dimension_values;
   vector< double > data_stash;
-
-  cout << "Tensor proto dim size - " << tensor_proto.dims_size() << endl;
 
   dimension_values.clear();
   for(int j = 0; j < tensor_proto.dims_size(); j++)
