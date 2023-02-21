@@ -1136,6 +1136,7 @@ bool onnx_parser :: read_graph_proto(onnx::GraphProto & graph_proto,
 
   for(int i = 0; i < graph_proto.input_size() ; i++)
   {
+    cout << "Graph proto index - " << i << endl;
     onnx::ValueInfoProto value_info_proto = graph_proto.input(i);
     parameter_name = value_info_proto.name();
     if(find(initializer_names.begin(), initializer_names.end(), parameter_name) == initializer_names.end())

@@ -1,0 +1,7 @@
+There was a GUROBI error in being able to find the right libraries.
+After the environment variables are set, do the following if the examples
+in GUROBI don't compile.
+
+1. Goto : < gurobi1001/linux64/src/build/ >
+2. Build using 'make'
+3. copy the libgurobi_c++.a to < /gurobi1001/linux64/lib >

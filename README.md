@@ -31,6 +31,10 @@ and libraries under
 
 > $(GUROBI\\_PATH)/$(HOST_ARCH)/include
 
+## Instructions to Install Protobuf Compiler
+
+Install Protocol buffer compiler, using the following commands :
+
 
 Once these are set, you should type
 

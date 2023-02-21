@@ -18,7 +18,7 @@ void test_1(int arg_count, char ** arg_val)
 	sherlock_parameters.skip_invariant_guarantees_in_binarization = true;
 	sherlock_parameters.skip_invariant_addition = true;
 	sherlock_parameters.MILP_M = 1e4;
-	sherlock_parameters.verbose_onnx = false;
+	sherlock_parameters.verbose_onnx = true;
 	sherlock_parameters.use_gurobi_internal_constraints = true;
 	sherlock_parameters.find_extra_directions = true;
 
