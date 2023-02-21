@@ -1123,10 +1123,15 @@ bool onnx_parser :: read_graph_proto(onnx::GraphProto & graph_proto,
     onnx::TensorProto tensor_proto;
     cout << "Step - 1" << endl;
     tensor_proto = graph_proto.initializer(i);
+    cout << "Step - 2" << endl;
     parameter_name = tensor_proto.name();
+    cout << "Step - 3" << endl;
     initializer_names.push_back(tensor_proto.name());
+    cout << "Step - 4" << endl;
     p_weight_value.clear();
+    cout << "Step - 5" << endl;
     read_tensor_proto(tensor_proto, p_weight_value);
+    cout << "Step - 6" << endl;
     parameters_map[parameter_name] = p_weight_value;
   }
 
