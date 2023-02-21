@@ -1121,6 +1121,7 @@ bool onnx_parser :: read_graph_proto(onnx::GraphProto & graph_proto,
     cout << "Graph proto initializer - " << i << endl;
 
     onnx::TensorProto tensor_proto;
+    cout << "Step - 1" << endl;
     tensor_proto = graph_proto.initializer(i);
     parameter_name = tensor_proto.name();
     initializer_names.push_back(tensor_proto.name());
